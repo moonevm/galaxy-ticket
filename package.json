@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "discord.js": "^14.28.1",
+    "galactic.ts": "^2.1.7",
     "readdirp": "^5.1.1"
   }
 }
