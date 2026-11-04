@@ -6,7 +6,7 @@
   "scripts": {
     "typecheck": "bun check",
     "start": "bun src/index.ts",
-    "dev": "bun --watch src/index.ts"
+    "dev": "bun src/index.ts --dev"
   },
   "devDependencies": {
     "@types/bun": "latest"
