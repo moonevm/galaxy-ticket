@@ -18,7 +18,7 @@ const instance = new Instance(
     1,
     1,
     token,
-    ["MessageContent", "GuildMessages", "GuildPresences", "GuildMembers"],
+    ["Guilds", "MessageContent", "GuildMessages", "GuildPresences", "GuildMembers"],
 );
 
 instance.start();
