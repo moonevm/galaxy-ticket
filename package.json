@@ -1,0 +1,21 @@
+{
+  "name": "galaxy-ticket",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "bun check",
+    "start": "bun src/index.ts",
+    "dev": "bun --watch src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^7"
+  },
+  "dependencies": {
+    "discord.js": "^14.28.1",
+    "readdirp": "^5.1.1"
+  }
+}
