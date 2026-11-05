@@ -6,21 +6,37 @@ import {
 import { defineCommand } from "../types.ts";
 import { errorMessage } from "../utils/messages.ts";
 import images from "../utils/images.ts";
+import {Panel} from "../../models/Panel.ts";
 
-function ticketMessageComponent() {
+function ticketMessageComponent({
+    panelId,
+    title,
+    description,
+    buttonLabel,
+    imageUrl
+                                }: {
+    panelId: string;
+    title: string;
+    buttonLabel: string;
+    description?: string;
+    imageUrl?: string;
+}) {
     const container = new ContainerBuilder();
 
     function text(text: string) { return new TextDisplayBuilder().setContent(text) }
 
     container.addTextDisplayComponents(
-        text("# 🎫 Ticket System"),
-        text("message content")
+        text(`# 🎫 ${title}`),
     );
+
+    description && container.addTextDisplayComponents(
+        text(description)
+    )
 
     container.addMediaGalleryComponents(
         new MediaGalleryBuilder().addItems(
             new MediaGalleryItemBuilder()
-                .setURL(images.TICKET_DEFAULT_BANNER)
+                .setURL(imageUrl ? imageUrl: images.TICKET_DEFAULT_BANNER)
         )
     );
 
@@ -33,14 +49,18 @@ function ticketMessageComponent() {
         )
     );
 
+    container.addTextDisplayComponents(
+        text(`-# Panel ID: \`${panelId}\``),
+    );
+
     // Action Row
 
     const actionRow = new ActionRowBuilder<ButtonBuilder>();
 
     actionRow.addComponents(
         new ButtonBuilder()
-            .setCustomId("ticket-create")
-            .setLabel("Create Ticket")
+            .setCustomId(`ticket-create-${panelId}`)
+            .setLabel(buttonLabel)
             .setStyle(ButtonStyle.Secondary)
             .setEmoji("🎫")
     );
@@ -54,10 +74,27 @@ export default defineCommand({
     if (!interaction.channel || !interaction.channel.isSendable())
       return interaction.reply(errorMessage("I can't send messages in this channel"));
 
-    await interaction.reply({ content: "sending...", flags: ["Ephemeral"] })
+    if (!interaction.guild)
+        return interaction.reply(errorMessage("Run this command in a server"));
+
+    await interaction.reply({ content: "sending...", flags: ["Ephemeral"] });
+
+    const panel = (await Panel.create({
+        name: "Panel Name",
+        buttonLabel: "Öffne ein Ticket",
+        guildId: interaction.guild.id,
+        title: "Ticket Titel",
+        description: "Ticket Beschreibung"
+    })).toJSON();
 
     await interaction.channel.send({
-        components: ticketMessageComponent(),
+        components: ticketMessageComponent({
+            panelId: panel.id!,
+            buttonLabel: panel.buttonLabel!,
+            description: panel.description,
+            title: panel.title,
+            imageUrl: panel.imageUrl,
+        }),
         flags: ["IsComponentsV2"]
     });
 
