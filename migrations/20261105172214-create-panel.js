@@ -13,7 +13,7 @@ export default {
       },
       guild_id: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.BIGINT
       },
       name: {
         allowNull: false,
