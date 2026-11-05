@@ -2,6 +2,7 @@ import { Cluster } from "galactic.ts";
 import { Client, type ClientOptions } from "discord.js";
 import { loadCommands } from "./handlers/commands.ts";
 import { loadEvents } from "./handlers/events.ts";
+import { sequelize } from "./utils/db.ts";
 
 export class ExtendedClient extends Client {
     cluster: Cluster<ExtendedClient>;
@@ -29,6 +30,7 @@ process.on("disconnect", () => {
     client.destroy().finally(() => process.exit(0));
 });
 
+await sequelize.authenticate();
 await loadCommands();
 await loadEvents(client);
 await client.login(cluster.token);

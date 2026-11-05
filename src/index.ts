@@ -1,12 +1,9 @@
 import { watch } from "node:fs";
 import path from "node:path";
 import { StandaloneInstance } from "galactic.ts";
-import { sequelize } from "./utils/db.ts";
 
 const token = process.env.DISCORD_TOKEN;
 if (!token) throw new Error("DISCORD_TOKEN is not set (add it to .env)");
-
-await sequelize.authenticate();
 
 const dev = process.argv.includes("--dev");
 
