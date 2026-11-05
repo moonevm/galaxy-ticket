@@ -3,6 +3,7 @@ import { Client, type ClientOptions } from "discord.js";
 import { loadCommands } from "./handlers/commands.ts";
 import { loadEvents } from "./handlers/events.ts";
 import { sequelize } from "./utils/db.ts";
+import {loadButtons} from "./handlers/buttons.ts";
 
 export class ExtendedClient extends Client {
     cluster: Cluster<ExtendedClient>;
@@ -33,4 +34,5 @@ process.on("disconnect", () => {
 await sequelize.authenticate();
 await loadCommands();
 await loadEvents(client);
+await loadButtons();
 await client.login(cluster.token);
