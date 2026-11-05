@@ -9,7 +9,8 @@
     "dev": "bun src/index.ts --dev"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "sequelize-cli": "^6.6.5"
   },
   "peerDependencies": {
     "typescript": "^7"
@@ -17,6 +18,10 @@
   "dependencies": {
     "discord.js": "^14.28.1",
     "galactic.ts": "^2.1.7",
-    "readdirp": "^5.1.1"
+    "pg": "^8.23.1",
+    "pg-hstore": "^2.3.4",
+    "readdirp": "^5.1.1",
+    "sequelize": "^6.37.8",
+    "sequelize-typescript": "^2.1.6"
   }
 }
