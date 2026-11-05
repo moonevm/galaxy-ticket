@@ -1,6 +1,7 @@
-import {AllowNull, Column, DataType, Default, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {AllowNull, Column, DataType, Default, HasMany, Model, PrimaryKey, Table} from "sequelize-typescript";
 import {generateId} from "../src/utils/generateId.ts";
-import type {InferAttributes, InferCreationAttributes} from "sequelize";
+import type {InferAttributes, InferCreationAttributes, NonAttribute} from "sequelize";
+import {Ticket} from "./Ticket.ts";
 
 @Table({
     tableName: "panels",
@@ -14,7 +15,7 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
     declare id?: string;
 
     @AllowNull(false)
-    @Column(DataType.STRING)
+    @Column(DataType.BIGINT)
     declare guildId: string;
 
     @AllowNull(false)
@@ -56,4 +57,7 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
     @AllowNull(false)
     @Column(DataType.BOOLEAN)
     declare deleteChannelOnClose?: boolean;
+
+    @HasMany(() => Ticket)
+    declare tickets?: NonAttribute<Ticket[]>;
 }
