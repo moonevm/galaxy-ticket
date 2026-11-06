@@ -6,7 +6,7 @@ export default {
     await queryInterface.changeColumn('tickets', 'close_reason', {
       allowNull: true,
       type: Sequelize.TEXT,
-      defaultValue: 'No reason given',
+      defaultValue: 'No reason provided',
     });
   },
 
