@@ -84,7 +84,8 @@ export default defineCommand({
         buttonLabel: "Öffne ein Ticket",
         guildId: interaction.guild.id,
         title: "Ticket Titel",
-        description: "Ticket Beschreibung"
+        description: "Ticket Beschreibung",
+        supportRoleId: "1567881410390401024"
     })).toJSON();
 
     await interaction.channel.send({
