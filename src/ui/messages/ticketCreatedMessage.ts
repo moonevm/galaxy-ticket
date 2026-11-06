@@ -11,7 +11,7 @@ export default function ticketCreatedMessage({
     const container = new ContainerBuilder()
 
     container.addTextDisplayComponents(
-        text("# ✅ The ticket has been created"),
+        text("# 🎫 The ticket has been created"),
         text("Use this button to go directly to your ticket.")
     )
 
