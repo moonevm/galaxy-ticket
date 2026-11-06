@@ -4,6 +4,7 @@ import { loadCommands } from "./handlers/commands.ts";
 import { loadEvents } from "./handlers/events.ts";
 import { sequelize } from "./utils/db.ts";
 import {loadButtons} from "./handlers/buttons.ts";
+import { loadModals } from "./handlers/modals.ts";
 
 export class ExtendedClient extends Client {
     cluster: Cluster<ExtendedClient>;
@@ -35,4 +36,5 @@ await sequelize.authenticate();
 await loadCommands();
 await loadEvents(client);
 await loadButtons();
+await loadModals();
 await client.login(cluster.token);
