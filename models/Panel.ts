@@ -40,8 +40,12 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
     @Column(DataType.STRING)
     declare buttonLabel?: string;
 
-    @AllowNull(true)
+    @AllowNull(false)
     @Column(DataType.STRING)
+    declare welcomeTitle?: string;
+
+    @AllowNull(true)
+    @Column(DataType.TEXT)
     declare welcomeMessage?: string;
 
     @AllowNull(true)
