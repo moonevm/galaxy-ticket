@@ -45,7 +45,7 @@ export default function ticketClosed({
         },
         {
             name: "Reason",
-            value: reason
+            value: `\`${reason}\``
         }
     ]
 
