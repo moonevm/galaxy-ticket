@@ -58,6 +58,10 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
     @Column(DataType.BOOLEAN)
     declare deleteChannelOnClose?: boolean;
 
+    @AllowNull(false)
+    @Column(DataType.BIGINT)
+    declare supportRoleId: string;
+
     @HasMany(() => Ticket)
     declare tickets?: NonAttribute<Ticket[]>;
 }
