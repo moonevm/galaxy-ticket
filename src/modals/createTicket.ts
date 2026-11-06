@@ -104,9 +104,7 @@ export default defineModal({
         } catch (e) {
             console.warn("[buttons] Sequelize error", e)
             await channel.delete("Database Error, removing ticket channel")
-            return await interaction.reply({
-                embeds: errorMessage("Something went wrong").embeds
-            })
+            return await interaction.reply(errorMessage("Something went wrong"))
         }
 
         await channel.send({
