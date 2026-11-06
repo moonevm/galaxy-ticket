@@ -22,6 +22,7 @@ export default defineButton({
     const ticketCount = await Ticket.count({
       where: {
         creatorId: interaction.user.id,
+        guildId: interaction.guild.id,
         status: {
           [Op.not]: "closed"
         }
