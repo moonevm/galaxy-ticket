@@ -1,4 +1,4 @@
-import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ContainerBuilder} from "discord.js";
+import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ContainerBuilder, SeparatorBuilder, SeparatorSpacingSize} from "discord.js";
 import {text} from "../../utils/text.ts";
 import {footer} from "../../utils/components/footer.ts";
 
@@ -15,6 +15,8 @@ export default function ticketCreatedMessage({
         text("# 🎫 The ticket has been created"),
         text("Use this button to go directly to your ticket.")
     )
+
+    container.addSeparatorComponents(new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Large))
 
     const actionRow = new ActionRowBuilder<ButtonBuilder>()
 
