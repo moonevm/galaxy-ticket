@@ -87,7 +87,8 @@ export default defineCommand({
         description: "Ticket Beschreibung",
         supportRoleId: "1567881410390401024",
         welcomeTitle: "Wilkommen im Ticket",
-        welcomeMessage: "Wie können wir dir helfen?"
+        welcomeMessage: "Wie können wir dir helfen?",
+        channelParentId: "1568204750057377854"
     })).toJSON();
 
     await interaction.channel.send({
