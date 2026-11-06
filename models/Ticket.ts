@@ -75,6 +75,7 @@ export class Ticket extends Model<InferAttributes<Ticket>, InferCreationAttribut
     @Column(DataType.DATE)
     declare closedAt?: Date;
 
+    @Default("No reason provided")
     @AllowNull(true)
     @Column(DataType.TEXT)
     declare closeReason?: string;
