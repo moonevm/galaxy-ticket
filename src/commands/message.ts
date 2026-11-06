@@ -85,7 +85,9 @@ export default defineCommand({
         guildId: interaction.guild.id,
         title: "Ticket Titel",
         description: "Ticket Beschreibung",
-        supportRoleId: "1567881410390401024"
+        supportRoleId: "1567881410390401024",
+        welcomeTitle: "Wilkommen im Ticket",
+        welcomeMessage: "Wie können wir dir helfen?"
     })).toJSON();
 
     await interaction.channel.send({
