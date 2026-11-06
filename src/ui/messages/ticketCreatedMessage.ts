@@ -1,5 +1,5 @@
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ContainerBuilder} from "discord.js";
-import {text} from "../text.ts";
+import {text} from "../../utils/text.ts";
 
 export default function ticketCreatedMessage({
     guildId,
