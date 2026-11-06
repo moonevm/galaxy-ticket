@@ -26,7 +26,7 @@ export default defineModal({
 
         const closedAt = new Date()
 
-        const reason = interaction.fields.getTextInputValue("reason")
+        const reason = interaction.fields.getTextInputValue("reason").trim()
 
         try {
             await user.send({
@@ -41,9 +41,11 @@ export default defineModal({
             status: "closed",
             closedBy: interaction.user.id,
             closedAt: new Date(),
-            closeReason: reason
+            closeReason: reason || "No reason provided"
         })
 
         await interaction.channel.delete(`Ticket got closed by ${interaction.user.username} (${interaction.user.id}). Reason: ${reason}`)
+
+        await interaction.deferUpdate()
     }
 })
