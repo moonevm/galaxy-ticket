@@ -42,7 +42,7 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
 
     @AllowNull(false)
     @Column(DataType.STRING)
-    declare welcomeTitle?: string;
+    declare welcomeTitle: string;
 
     @AllowNull(true)
     @Column(DataType.TEXT)
