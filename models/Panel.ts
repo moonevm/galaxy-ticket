@@ -62,6 +62,10 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
     @Column(DataType.BIGINT)
     declare supportRoleId: string;
 
+    @AllowNull(true)
+    @Column(DataType.BIGINT)
+    declare channelParentId?: string;
+
     @HasMany(() => Ticket)
     declare tickets?: NonAttribute<Ticket[]>;
 }
