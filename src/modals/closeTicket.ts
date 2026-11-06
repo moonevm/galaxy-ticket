@@ -37,14 +37,14 @@ export default defineModal({
             console.error(`[commands] Couldn't send DM to ${interaction.user.username} (${interaction.user.id}) at src/buttons/closeTicket.ts`, e)
         }
 
-        await ticket.update({
+        const updatedTicket = await ticket.update({
             status: "closed",
             closedBy: interaction.user.id,
             closedAt: new Date(),
             closeReason: reason || "No reason provided"
         })
 
-        await interaction.channel.delete(`Ticket got closed by ${interaction.user.username} (${interaction.user.id}). Reason: ${reason}`)
+        await interaction.channel.delete(`Ticket got closed by ${interaction.user.username} (${interaction.user.id}). Reason: ${updatedTicket.closeReason}`)
 
         await interaction.deferUpdate()
     }
