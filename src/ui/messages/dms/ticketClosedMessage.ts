@@ -10,6 +10,7 @@ export default function ticketClosed({
     createdAt,
     closedAt,
     closedBy,
+    reason,
  }: {
     ticketId: string;
     panelId: string;
@@ -17,6 +18,7 @@ export default function ticketClosed({
     createdAt: Date;
     closedAt: Date;
     closedBy: string;
+    reason: string;
 }) {
     const container = new ContainerBuilder()
 
@@ -40,6 +42,10 @@ export default function ticketClosed({
         {
             name: "Created at",
             value: `<t:${Math.floor(+createdAt / 1000)}:F>`
+        },
+        {
+            name: "Reason",
+            value: reason
         }
     ]
 
