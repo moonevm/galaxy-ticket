@@ -1,5 +1,6 @@
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ContainerBuilder} from "discord.js";
 import {text} from "../../utils/text.ts";
+import {footer} from "../../utils/components/footer.ts";
 
 export default function ticketCreatedMessage({
     guildId,
@@ -25,6 +26,10 @@ export default function ticketCreatedMessage({
     )
 
     container.addActionRowComponents(actionRow)
+
+    footer({
+        container
+    })
 
     return container
 }
