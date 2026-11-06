@@ -1,4 +1,4 @@
-import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ContainerBuilder, type Guild, type User} from "discord.js";
+import {ContainerBuilder, type Guild} from "discord.js";
 import {text} from "../../../utils/text.ts";
 import {formatDuration} from "../../../utils/formatDuration.ts";
 import {footer} from "../../../utils/components/footer.ts";
