@@ -1,2 +1,3 @@
 import createTicketModal from "../ui/modals/createTicketModal.ts";
-export { createTicketModal }
+import closeTicketModal from "../ui/modals/closeTicketModal.ts";
+export { closeTicketModal, createTicketModal }
