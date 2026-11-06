@@ -1,7 +1,7 @@
 import { defineModal } from "../types.ts";
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ContainerBuilder} from "discord.js";
 import { Panel } from "../../models/Panel.ts";
-import { errorMessage } from "../utils/messages.ts";
+import {errorMessage, ticketCreatedMessage} from "../utils/messages.ts";
 import { Ticket } from "../../models/Ticket.ts";
 import {text} from "../utils/text.ts";
 import {Op} from "sequelize";
@@ -120,8 +120,11 @@ export default defineModal({
         })
 
         await interaction.reply({
-            content: `🎫 Ticket created <#${channel.id}>`,
-            flags: ["Ephemeral"]
+            components: [ticketCreatedMessage({
+                guildId: interaction.guild.id,
+                channelId: channel.id
+            })],
+            flags: ["Ephemeral", "IsComponentsV2"]
         })
     }
 })
