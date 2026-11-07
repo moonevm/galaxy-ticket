@@ -140,6 +140,8 @@ export default defineModal({
             flags: ["IsComponentsV2"],
         })
 
+        await message.pin()
+
         await interaction.reply({
             components: [ticketCreatedMessage({
                 guildId: interaction.guild.id,
