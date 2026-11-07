@@ -1,4 +1,16 @@
-import {AllowNull, BelongsTo, Column, DataType, Default, ForeignKey, HasMany, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {
+    AllowNull,
+    BelongsTo,
+    Column,
+    DataType,
+    Default,
+    ForeignKey,
+    HasMany,
+    Model,
+    PrimaryKey,
+    Table,
+    Unique
+} from "sequelize-typescript";
 import {generateId} from "../src/utils/generateId.ts";
 import type {InferAttributes, InferCreationAttributes, NonAttribute} from "sequelize";
 import {Panel} from "./Panel.ts";
@@ -33,6 +45,11 @@ export class Ticket extends Model<InferAttributes<Ticket>, InferCreationAttribut
     @AllowNull(false)
     @Column(DataType.BIGINT)
     declare channelId: string;
+
+    @Unique
+    @AllowNull(false)
+    @Column(DataType.BIGINT)
+    declare messageId: string;
 
     @AllowNull(false)
     @Column(DataType.BIGINT)
