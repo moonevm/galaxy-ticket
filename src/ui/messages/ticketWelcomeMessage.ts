@@ -25,7 +25,7 @@ export default function ticketCreatedMessage({
     creatorId: string;
     subject: string;
     title: string;
-    description: string;
+    description?: string;
     imageUrl?: string;
 
     claimed: boolean;
@@ -66,8 +66,9 @@ export default function ticketCreatedMessage({
 
     container.addTextDisplayComponents(
         text(`# 🎫 ${title}`),
-        text(description)
     )
+
+    description && container.addTextDisplayComponents(text(description))
 
     container.addTextDisplayComponents(
         text(`${fields.filter((e) => e !== null).map((e) => `- ${e.emoji} **${e.name}:** ${e.value}`).join("\n")}`)
