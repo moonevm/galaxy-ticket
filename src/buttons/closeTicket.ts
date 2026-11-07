@@ -13,7 +13,7 @@ export default defineButton({
             where: {
                 channelId: interaction.channelId,
                 status: {
-                    [Op.not]: "closed"
+                    [Op.notIn]: ["closed", "on_hold"]
                 }
             },
             include: [Panel]
@@ -23,12 +23,19 @@ export default defineButton({
 
         if (!panel) return interaction.reply(errorMessage("This panel no longer exists"));
 
-        if (!interaction.guild || !interaction.channel) return
+        if (!interaction.guild || !interaction.channel || !interaction.memberPermissions) return
 
         const guildMember = await interaction.guild.members.fetch(interaction.user.id)
 
         if (!guildMember.roles.cache.has(panel.supportRoleId))
             return interaction.reply(errorMessage(`You do not have the <@&${panel.supportRoleId}> role!`));
+
+        const isAdmin = interaction.memberPermissions.has("Administrator")
+
+        if (ticket.status === "claimed") {
+            if (interaction.user.id !== ticket.claimedBy && !isAdmin)
+                return interaction.reply(errorMessage(`Only <@${ticket.claimedBy}> or a server administrator can close this ticket!`));
+        }
 
         await interaction.showModal(
             closeTicketModal({
