@@ -16,7 +16,9 @@ export default function ticketCreatedMessage({
     imageUrl,
 
     claimed,
+    claimedBy,
     onHold,
+    onHoldReason,
 }: {
     panelId: string;
     ticketId: string;
@@ -27,11 +29,13 @@ export default function ticketCreatedMessage({
     imageUrl?: string;
 
     claimed: boolean;
+    claimedBy?: string;
     onHold: boolean;
+    onHoldReason?: string;
 }) {
     const container = new ContainerBuilder()
 
-    const fields = [
+    const fields: Array<{ name: string; value: string; emoji: string } | null> = [
         {
             name: "Panel ID",
             value: `\`${panelId}\``,
@@ -47,6 +51,17 @@ export default function ticketCreatedMessage({
             value: `<@${creatorId}>`,
             emoji: "✍️"
         },
+
+        claimed ? {
+            name: "Claimed By",
+            value: `<@${claimedBy}>`,
+            emoji: "🙋"
+        }: null,
+        onHold ? {
+            name: "On Hold Reason",
+            value: `\`${onHoldReason}\``,
+            emoji: "⏸️"
+        }: null
     ]
 
     container.addTextDisplayComponents(
@@ -55,7 +70,7 @@ export default function ticketCreatedMessage({
     )
 
     container.addTextDisplayComponents(
-        text(`${fields.map((e) => `- ${e.emoji} **${e.name}:** ${e.value}`).join("\n")}`)
+        text(`${fields.filter((e) => e !== null).map((e) => `- ${e.emoji} **${e.name}:** ${e.value}`).join("\n")}`)
     )
 
     container.addSeparatorComponents(new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Large))
