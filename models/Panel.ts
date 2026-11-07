@@ -70,6 +70,11 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
     @Column(DataType.BIGINT)
     declare channelParentId?: string;
 
+    @Default(true)
+    @AllowNull(false)
+    @Column(DataType.BOOLEAN)
+    declare pingSupporter?: string;
+
     @HasMany(() => Ticket)
     declare tickets?: NonAttribute<Ticket[]>;
 }
