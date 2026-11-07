@@ -13,7 +13,7 @@ export default function holdTicketModal({
         .setCustomId("reason")
         .setStyle(TextInputStyle.Short)
         .setPlaceholder("Waiting for reply / Under investigation")
-        .setRequired(false);
+        .setRequired(true);
 
     const concernLabel = new LabelBuilder()
         .setLabel("Reason for Holding Ticket")
