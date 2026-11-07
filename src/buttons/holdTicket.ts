@@ -34,7 +34,7 @@ export default defineButton({
 
         if (ticket.status === "claimed") {
             if (interaction.user.id !== ticket.claimedBy && !isAdmin)
-                return interaction.reply(errorMessage(`Only <@${ticket.claimedBy}> or a server administrator can close this ticket!`));
+                return interaction.reply(errorMessage(`Only <@${ticket.claimedBy}> or a server administrator can put this ticket on hold!`));
         }
 
         await interaction.showModal(holdTicketModal({
