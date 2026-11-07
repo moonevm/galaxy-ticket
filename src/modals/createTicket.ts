@@ -98,7 +98,7 @@ export default defineModal({
                 channelId: channel.id,
                 creatorId: interaction.user.id,
                 guildId: guild.id,
-                subject: interaction.fields.getTextInputValue("subject") || "No subject",
+                subject: interaction.fields.getTextInputValue("subject").trim() || "No subject",
                 panelId: panel.id,
             })
         } catch (e) {
