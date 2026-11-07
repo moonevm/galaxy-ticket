@@ -91,6 +91,10 @@ export default defineModal({
             ]
         })
 
+        const message = await channel.send({
+            content: "🎫 Setting up the ticket message"
+        })
+
         let ticket: Ticket;
 
         try {
@@ -100,6 +104,7 @@ export default defineModal({
                 guildId: guild.id,
                 subject: interaction.fields.getTextInputValue("subject").trim() || "No subject",
                 panelId: panel.id,
+                messageId: message.id
             })
         } catch (e) {
             console.warn("[buttons] Sequelize error", e)
@@ -120,11 +125,12 @@ export default defineModal({
             onHold: ticket.status === "on_hold",
         })
 
-        await channel.send({
+        await message.edit({
             components: [
                 containers.mainContainer,
             ],
             flags: ["IsComponentsV2"],
+            content: ""
         })
 
         await channel.send({
