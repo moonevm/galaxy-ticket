@@ -91,6 +91,11 @@ export default defineModal({
             ]
         })
 
+        if (panel.pingSupporter)
+            await channel.send({
+                content: `<@&${panel.supportRoleId}>`
+            });
+
         const message = await channel.send({
             content: "🎫 Setting up the ticket message"
         })
