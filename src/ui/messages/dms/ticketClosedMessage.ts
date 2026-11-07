@@ -25,27 +25,33 @@ export default function ticketClosed({
     const fields = [
         {
             name: "Case ID",
-            value: `\`${ticketId}\``
+            value: `\`${ticketId}\``,
+            emoji: "\t🎫"
         },
         {
             name: "Panel ID",
-            value: `\`${panelId}\``
+            value: `\`${panelId}\``,
+            emoji: "📋"
         },
         {
             name: "Guild",
-            value: `**[${guild.name}](https://discord.com/channels/${guild.id})**`
+            value: `**[${guild.name}](https://discord.com/channels/${guild.id})**`,
+            emoji: "🏠"
         },
         {
             name: "Processing time",
-            value: formatDuration(createdAt, closedAt)
+            value: formatDuration(createdAt, closedAt),
+            emoji: "⏱️"
         },
         {
             name: "Created at",
-            value: `<t:${Math.floor(+createdAt / 1000)}:F>`
+            value: `<t:${Math.floor(+createdAt / 1000)}:F>`,
+            emoji: "📅"
         },
         {
             name: "Reason",
-            value: `\`${reason}\``
+            value: `\`${reason}\``,
+            emoji: "📝"
         }
     ]
 
@@ -57,7 +63,7 @@ export default function ticketClosed({
     container.addTextDisplayComponents(
         text(`
             \n\n
-            ${fields.map((e) => `- **${e.name}:** ${e.value}`).join("\n")}
+            ${fields.map((e) => `- ${e.emoji} **${e.name}:** ${e.value}`).join("\n")}
         `)
     )
 
