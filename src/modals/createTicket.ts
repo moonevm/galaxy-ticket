@@ -1,7 +1,7 @@
 import { defineModal } from "../types.ts";
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ContainerBuilder} from "discord.js";
 import { Panel } from "../../models/Panel.ts";
-import {errorMessage, ticketCreatedMessage} from "../utils/messages.ts";
+import {errorMessage, ticketCreatedMessage, ticketWelcomeMessage} from "../utils/messages.ts";
 import { Ticket } from "../../models/Ticket.ts";
 import {text} from "../utils/text.ts";
 import {Op} from "sequelize";
@@ -107,16 +107,31 @@ export default defineModal({
             return await interaction.reply(errorMessage("Something went wrong"))
         }
 
+        const containers = ticketWelcomeMessage({
+            creatorId: interaction.user.id,
+            description: panel.welcomeMessage!,
+            title: panel.welcomeTitle!,
+            ticketId: ticket.id!,
+            imageUrl: panel.welcomeImageUrl,
+            panelId: panel.id!,
+            subject: ticket.subject,
+
+            claimed: ticket.status === "claimed",
+            onHold: ticket.status === "on_hold",
+        })
+
         await channel.send({
             components: [
-                new ActionRowBuilder<ButtonBuilder>()
-                    .addComponents(
-                        new ButtonBuilder()
-                            .setLabel("close ticket")
-                            .setStyle(ButtonStyle.Danger)
-                            .setCustomId(`ticket-close`)
-                    )
+                containers.mainContainer,
             ],
+            flags: ["IsComponentsV2"],
+        })
+
+        await channel.send({
+            components: [
+                containers.reasonContainer
+            ],
+            flags: ["IsComponentsV2"],
         })
 
         await interaction.reply({
