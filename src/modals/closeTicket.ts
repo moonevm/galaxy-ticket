@@ -28,21 +28,21 @@ export default defineModal({
 
         const reason = interaction.fields.getTextInputValue("reason").trim()
 
-        try {
-            await user.send({
-                flags: ["IsComponentsV2"],
-                components: [ticketClosedMessage({ ticketId: ticket.id!, closedAt, closedBy: interaction.user.id, createdAt: ticket.createdAt, guild, panelId: panel.id!, reason })]
-            })
-        } catch (e) {
-            console.error(`[commands] Couldn't send DM to ${interaction.user.username} (${interaction.user.id}) at src/buttons/closeTicket.ts`, e)
-        }
-
         const updatedTicket = await ticket.update({
             status: "closed",
             closedBy: interaction.user.id,
             closedAt: new Date(),
             closeReason: reason || "No reason provided"
         })
+
+        try {
+            await user.send({
+                flags: ["IsComponentsV2"],
+                components: [ticketClosedMessage({ ticketId: ticket.id!, closedAt, closedBy: interaction.user.id, createdAt: ticket.createdAt, guild, panelId: panel.id!, reason: updatedTicket.closeReason! })]
+            })
+        } catch (e) {
+            console.error(`[commands] Couldn't send DM to ${interaction.user.username} (${interaction.user.id}) at src/buttons/closeTicket.ts`, e)
+        }
 
         await interaction.channel.delete(`Ticket got closed by ${interaction.user.username} (${interaction.user.id}). Reason: ${updatedTicket.closeReason}`)
 
