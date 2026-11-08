@@ -12,7 +12,7 @@ export class TicketParticipant extends Model<InferAttributes<TicketParticipant>,
     @PrimaryKey
     @AllowNull(false)
     @Column(DataType.STRING)
-    declare id?: string;
+    declare id?: string | null;
 
     @ForeignKey(() => Ticket)
     @AllowNull(false)
@@ -33,9 +33,9 @@ export class TicketParticipant extends Model<InferAttributes<TicketParticipant>,
     @Default(DataType.NOW)
     @AllowNull(false)
     @Column(DataType.DATE)
-    declare addedAt?: Date;
+    declare addedAt?: Date | null;
 
     @AllowNull(true)
     @Column(DataType.DATE)
-    declare removedAt?: Date;
+    declare removedAt?: Date | null;
 }

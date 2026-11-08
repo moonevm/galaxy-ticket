@@ -12,7 +12,7 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
     @PrimaryKey
     @AllowNull(false)
     @Column(DataType.STRING)
-    declare id?: string;
+    declare id?: string | null;
 
     @AllowNull(false)
     @Column(DataType.BIGINT)
@@ -29,16 +29,16 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
     @Default("This panel has no description")
     @AllowNull(false)
     @Column(DataType.TEXT)
-    declare description?: string;
+    declare description?: string | null;
 
     @AllowNull(true)
     @Column(DataType.STRING)
-    declare imageUrl?: string;
+    declare imageUrl?: string | null;
 
     @Default("Create Ticket")
     @AllowNull(false)
     @Column(DataType.STRING)
-    declare buttonLabel?: string;
+    declare buttonLabel?: string | null;
 
     @AllowNull(false)
     @Column(DataType.STRING)
@@ -46,21 +46,21 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
 
     @AllowNull(true)
     @Column(DataType.TEXT)
-    declare welcomeMessage?: string;
+    declare welcomeMessage?: string | null;
 
     @AllowNull(true)
     @Column(DataType.STRING)
-    declare welcomeImageUrl?: string;
+    declare welcomeImageUrl?: string | null;
 
     @Default(1)
     @AllowNull(false)
     @Column(DataType.INTEGER)
-    declare maxOpenTicketsPerUser?: number;
+    declare maxOpenTicketsPerUser?: number | null;
 
     @Default(true)
     @AllowNull(false)
     @Column(DataType.BOOLEAN)
-    declare deleteChannelOnClose?: boolean;
+    declare deleteChannelOnClose?: boolean | null;
 
     @AllowNull(false)
     @Column(DataType.BIGINT)
@@ -68,12 +68,12 @@ export class Panel extends Model<InferAttributes<Panel>, InferCreationAttributes
 
     @AllowNull(true)
     @Column(DataType.BIGINT)
-    declare channelParentId?: string;
+    declare channelParentId?: string | null;
 
     @Default(true)
     @AllowNull(false)
     @Column(DataType.BOOLEAN)
-    declare pingSupporter?: string;
+    declare pingSupporter?: string | null;
 
     @HasMany(() => Ticket)
     declare tickets?: NonAttribute<Ticket[]>;

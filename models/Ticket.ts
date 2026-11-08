@@ -28,7 +28,7 @@ export class Ticket extends Model<InferAttributes<Ticket>, InferCreationAttribut
     @PrimaryKey
     @AllowNull(false)
     @Column(DataType.STRING)
-    declare id?: string;
+    declare id?: string | null;
 
     @AllowNull(false)
     @Column(DataType.BIGINT)
@@ -37,7 +37,7 @@ export class Ticket extends Model<InferAttributes<Ticket>, InferCreationAttribut
     @ForeignKey(() => Panel)
     @AllowNull(true)
     @Column(DataType.STRING)
-    declare panelId?: string;
+    declare panelId?: string | null;
 
     @BelongsTo(() => Panel, { onDelete: "SET NULL", onUpdate: "CASCADE" })
     declare panel?: NonAttribute<Panel>;
@@ -66,36 +66,36 @@ export class Ticket extends Model<InferAttributes<Ticket>, InferCreationAttribut
 
     @AllowNull(true)
     @Column(DataType.BIGINT)
-    declare claimedBy?: string;
+    declare claimedBy?: string | null;
 
     @AllowNull(true)
     @Column(DataType.DATE)
-    declare claimedAt?: Date;
+    declare claimedAt?: Date | null;
 
     @AllowNull(true)
     @Column(DataType.BIGINT)
-    declare onHoldBy?: string;
+    declare onHoldBy?: string | null;
 
     @AllowNull(true)
     @Column(DataType.DATE)
-    declare onHoldAt?: Date;
+    declare onHoldAt?: Date | null;
 
     @AllowNull(true)
     @Column(DataType.TEXT)
-    declare onHoldReason?: string;
+    declare onHoldReason?: string | null;
 
     @AllowNull(true)
     @Column(DataType.BIGINT)
-    declare closedBy?: string;
+    declare closedBy?: string | null;
 
     @AllowNull(true)
     @Column(DataType.DATE)
-    declare closedAt?: Date;
+    declare closedAt?: Date | null;
 
     @Default("No reason provided")
     @AllowNull(true)
     @Column(DataType.TEXT)
-    declare closeReason?: string;
+    declare closeReason?: string | null;
 
     @HasMany(() => TicketParticipant)
     declare participants?: NonAttribute<TicketParticipant[]>;
