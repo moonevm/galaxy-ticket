@@ -2,16 +2,19 @@ import {ContainerBuilder} from "discord.js";
 import {text} from "../../utils/text.ts";
 import {footer} from "../../utils/components/footer.ts";
 
-export default function ticketContinueMessage({
+export default function holdMessage({
     userId,
+    reason,
 }: {
     userId: string;
+    reason: string;
 }) {
     const container = new ContainerBuilder()
 
     container.addTextDisplayComponents(
-        text(`# 🎫 <@${userId}> resumed the ticket`),
-        text("Thanks for waiting! Your ticket is active again and will be taken care of.")
+        text(`# 🎫 <@${userId}> put the ticket on hold`),
+        text("Your ticket is paused for now. We'll continue as soon as possible. No need to open a new one."),
+        text(`Reason: \`${reason}\``)
     )
 
     footer({

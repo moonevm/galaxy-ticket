@@ -1,6 +1,6 @@
 import {LabelBuilder, ModalBuilder, TextInputBuilder, TextInputStyle} from "discord.js";
 
-export default function holdTicketModal({
+export default function holdModal({
     ticketId,
 }: {
     ticketId: string,

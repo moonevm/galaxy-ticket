@@ -4,7 +4,7 @@ import { Panel } from "../../models/Panel.ts";
 import { ButtonStyle, ChannelType, TextInputStyle } from "discord.js";
 import { Ticket } from "../../models/Ticket.ts";
 import {Op} from "sequelize";
-import {createTicketModal} from "../utils/modals.ts";
+import {createModal} from "../utils/modals.ts";
 
 const PREFIX = "ticket-create-";
 
@@ -33,7 +33,7 @@ export default defineButton({
       return interaction.reply(errorMessage(`You can have a maximum of ${panel.maxOpenTicketsPerUser} open tickets at a time`));
 
     await interaction.showModal(
-        createTicketModal({
+        createModal({
           panelId: panel.id!,
           title: panel.title
         })

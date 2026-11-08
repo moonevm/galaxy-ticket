@@ -1,6 +1,6 @@
 import {LabelBuilder, ModalBuilder, TextInputBuilder, TextInputStyle} from "discord.js";
 
-export default function createTicketModal({
+export default function createModal({
     panelId,
     title,
 }: {

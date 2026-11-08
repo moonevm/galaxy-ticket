@@ -1,5 +1,5 @@
 import { defineButton } from "../types.ts";
-import {errorMessage, ticketContinueMessage} from "../utils/messages.ts";
+import {errorMessage, continueMessage} from "../utils/messages.ts";
 import { Ticket } from "../../models/Ticket.ts";
 import {Panel} from "../../models/Panel.ts";
 import {updateWelcomeMessage} from "../utils/tickets/updateWelcomeMessage.ts";
@@ -44,7 +44,7 @@ export default defineButton({
         })
 
         await interaction.channel.send({
-            components: [ticketContinueMessage({ userId: interaction.user.id })],
+            components: [continueMessage({ userId: interaction.user.id })],
             flags: ["IsComponentsV2"]
         })
 

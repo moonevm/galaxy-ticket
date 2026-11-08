@@ -3,7 +3,7 @@ import {errorMessage} from "../utils/messages.ts";
 import { Ticket } from "../../models/Ticket.ts";
 import {Op} from "sequelize";
 import {Panel} from "../../models/Panel.ts";
-import {closeTicketModal, holdTicketModal} from "../utils/modals.ts";
+import {closeTicketModal, holdModal} from "../utils/modals.ts";
 
 export default defineButton({
     id: "ticket-onhold",
@@ -37,7 +37,7 @@ export default defineButton({
                 return interaction.reply(errorMessage(`Only <@${ticket.claimedBy}> or a server administrator can put this ticket on hold!`));
         }
 
-        await interaction.showModal(holdTicketModal({
+        await interaction.showModal(holdModal({
             ticketId: ticket.id!
         }))
     },

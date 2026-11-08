@@ -1,7 +1,7 @@
 import { defineModal } from "../types.ts";
 import {ButtonStyle, ChannelType} from "discord.js";
 import { Panel } from "../../models/Panel.ts";
-import {errorMessage, ticketClosedMessage, ticketHoldMessage} from "../utils/messages.ts";
+import {errorMessage, ticketClosedMessage, holdMessage} from "../utils/messages.ts";
 import { Ticket } from "../../models/Ticket.ts";
 import {updateWelcomeMessage} from "../utils/tickets/updateWelcomeMessage.ts";
 
@@ -37,7 +37,7 @@ export default defineModal({
 
         await channel.send({
             flags: ["IsComponentsV2"],
-            components: [ticketHoldMessage({ userId: interaction.user.id, reason })]
+            components: [holdMessage({ userId: interaction.user.id, reason })]
         })
 
         await updateWelcomeMessage({

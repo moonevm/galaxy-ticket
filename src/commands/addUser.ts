@@ -1,6 +1,6 @@
 import {defineCommand} from "../types.ts";
 import {ChannelType, SlashCommandBuilder} from "discord.js";
-import {errorMessage, ticketAddUser} from "../utils/messages.ts";
+import {errorMessage, addUser} from "../utils/messages.ts";
 import {Ticket} from "../../models/Ticket.ts";
 import {Panel} from "../../models/Panel.ts";
 import {TicketParticipant} from "../../models/TicketParticipant.ts";
@@ -69,7 +69,7 @@ export default defineCommand({
 
         await channel.send({
             flags: ["IsComponentsV2"],
-            components: [ticketAddUser({
+            components: [addUser({
                 moderatorId: interaction.user.id,
                 userId: user.id
             })],

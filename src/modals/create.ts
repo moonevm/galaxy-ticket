@@ -1,7 +1,7 @@
 import { defineModal } from "../types.ts";
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ContainerBuilder} from "discord.js";
 import { Panel } from "../../models/Panel.ts";
-import {errorMessage, ticketCreatedMessage, ticketWelcomeMessage} from "../utils/messages.ts";
+import {errorMessage, createdMessage, ticketWelcomeMessage} from "../utils/messages.ts";
 import { Ticket } from "../../models/Ticket.ts";
 import {text} from "../utils/text.ts";
 import {Op} from "sequelize";
@@ -148,7 +148,7 @@ export default defineModal({
         await message.pin()
 
         await interaction.reply({
-            components: [ticketCreatedMessage({
+            components: [createdMessage({
                 guildId: interaction.guild.id,
                 channelId: channel.id
             })],

@@ -2,7 +2,7 @@ import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ContainerBuilder, Separato
 import {text} from "../../utils/text.ts";
 import {footer} from "../../utils/components/footer.ts";
 
-export default function ticketCreatedMessage({
+export default function createdMessage({
     guildId,
     channelId,
 }: {
