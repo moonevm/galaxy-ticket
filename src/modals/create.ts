@@ -29,7 +29,11 @@ export default defineModal({
         })
 
         if (panel.maxOpenTicketsPerUser !== 0 && ticketCount >= panel.maxOpenTicketsPerUser!)
-            return interaction.reply(errorMessage(`You can have a maximum of ${panel.maxOpenTicketsPerUser} open tickets at a time`));
+            return interaction.editReply(errorMessage(`You can have a maximum of ${panel.maxOpenTicketsPerUser} open tickets at a time`, false));
+
+        await interaction.deferReply({
+            flags: ["Ephemeral"]
+        })
 
         // Ich weiß, es ist nicht atomisch, aber ich weiß nicht, wie man es mit sequelize macht :( und claude's lösungen sind nicht wirklich gut
 
@@ -114,7 +118,7 @@ export default defineModal({
         } catch (e) {
             console.warn("[buttons] Sequelize error", e)
             await channel.delete("Database Error, removing ticket channel")
-            return await interaction.reply(errorMessage("Something went wrong"))
+            return await interaction.editReply(errorMessage("Something went wrong", false))
         }
 
         const containers = ticketWelcomeMessage({
@@ -147,12 +151,12 @@ export default defineModal({
 
         await message.pin()
 
-        await interaction.reply({
+        await interaction.editReply({
             components: [createdMessage({
                 guildId: interaction.guild.id,
                 channelId: channel.id
             })],
-            flags: ["Ephemeral", "IsComponentsV2"]
+            flags: ["IsComponentsV2"]
         })
     }
 })
