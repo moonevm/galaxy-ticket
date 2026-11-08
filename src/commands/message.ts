@@ -18,8 +18,8 @@ function ticketMessageComponent({
     panelId: string;
     title: string;
     buttonLabel: string;
-    description?: string;
-    imageUrl?: string;
+    description?: string | null;
+    imageUrl?: string | null;
 }) {
     const container = new ContainerBuilder();
 

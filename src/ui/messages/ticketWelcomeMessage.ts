@@ -25,13 +25,13 @@ export default function ticketCreatedMessage({
     creatorId: string;
     subject: string;
     title: string;
-    description?: string;
-    imageUrl?: string;
+    description?: string | null;
+    imageUrl?: string | null;
 
     claimed: boolean;
-    claimedBy?: string;
+    claimedBy?: string | null;
     onHold: boolean;
-    onHoldReason?: string;
+    onHoldReason?: string | null;
 }) {
     const container = new ContainerBuilder()
 
