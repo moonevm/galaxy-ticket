@@ -6,4 +6,6 @@ import ticketClaimMessage from "../ui/messages/ticketClaimMessage.ts";
 import ticketUnclaimMessage from "../ui/messages/ticketUnclaimMessage.ts";
 import ticketHoldMessage from "../ui/messages/ticketHoldMessage.ts";
 import ticketContinueMessage from "../ui/messages/ticketContinueMessage.ts";
-export { ticketContinueMessage, ticketHoldMessage, ticketUnclaimMessage, ticketClaimMessage, ticketWelcomeMessage, ticketCreatedMessage, errorMessage, ticketClosedMessage };
+import ticketAddUser from "../ui/messages/ticketAddUser.ts";
+import ticketRemoveUser from "../ui/messages/ticketRemoveUser.ts";
+export { ticketAddUser, ticketRemoveUser, ticketContinueMessage, ticketHoldMessage, ticketUnclaimMessage, ticketClaimMessage, ticketWelcomeMessage, ticketCreatedMessage, errorMessage, ticketClosedMessage };
