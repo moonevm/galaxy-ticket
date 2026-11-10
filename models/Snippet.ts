@@ -19,6 +19,10 @@ export class Snippet extends Model<InferAttributes<Snippet>, InferCreationAttrib
     declare guildId: string;
 
     @AllowNull(false)
+    @Column(DataType.STRING)
+    declare title: string;
+
+    @AllowNull(false)
     @Column(DataType.TEXT)
     declare content: string;
 }
