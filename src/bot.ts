@@ -1,6 +1,7 @@
 import { Cluster } from "galactic.ts";
 import { Client, type ClientOptions } from "discord.js";
 import { loadCommands } from "./handlers/commands.ts";
+import { loadSubcommands } from "./handlers/subcommands.ts";
 import { loadEvents } from "./handlers/events.ts";
 import { sequelize } from "./utils/db.ts";
 import {loadButtons} from "./handlers/buttons.ts";
@@ -34,6 +35,7 @@ process.on("disconnect", () => {
 
 await sequelize.authenticate();
 await loadCommands();
+await loadSubcommands();
 await loadEvents(client);
 await loadButtons();
 await loadModals();

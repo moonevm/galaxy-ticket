@@ -1,8 +1,14 @@
 import { commands } from "../../handlers/commands.ts";
+import { getSubcommandsFor } from "../../handlers/subcommands.ts";
 import { defineEvent } from "../../types.ts";
 
 export default defineEvent<"clientReady">(async (client) => {
-  const body = commands.map((command) => command.data.toJSON());
+  const body = commands.map((command) => {
+    const json = command.data.toJSON();
+    const subs = getSubcommandsFor(command.data.name).map((sub) => sub.data.toJSON());
+    if (subs.length) json.options = [...(json.options ?? []), ...subs];
+    return json;
+  });
   const guildId = process.env.GUILD_ID;
 
   if (guildId) {

@@ -7,7 +7,11 @@ export const commands = new Collection<string, Command>();
 
 function isCommand(value: unknown): value is Command {
   const v = value as Command | undefined;
-  return typeof v?.data?.name === "string" && typeof v.data.toJSON === "function" && typeof v.execute === "function";
+  return (
+    typeof v?.data?.name === "string" &&
+    typeof v.data.toJSON === "function" &&
+    (v.execute === undefined || typeof v.execute === "function")
+  );
 }
 
 export async function loadCommands(dir = path.join(import.meta.dir, "..", "commands")) {

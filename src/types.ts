@@ -1,10 +1,12 @@
 import type {
+  AutocompleteInteraction,
   ButtonInteraction,
   ChatInputCommandInteraction,
   Client,
   ClientEvents,
   ModalSubmitInteraction,
   RESTPostAPIChatInputApplicationCommandsJSONBody,
+  SlashCommandSubcommandBuilder,
 } from "discord.js";
 
 export interface Command {
@@ -12,7 +14,15 @@ export interface Command {
     name: string;
     toJSON(): RESTPostAPIChatInputApplicationCommandsJSONBody;
   };
+  execute?(interaction: ChatInputCommandInteraction): unknown | Promise<unknown>;
+}
+
+export interface Subcommand {
+  command: string;
+  parentDescription?: string;
+  data: SlashCommandSubcommandBuilder;
   execute(interaction: ChatInputCommandInteraction): unknown | Promise<unknown>;
+  autocomplete?(interaction: AutocompleteInteraction): unknown | Promise<unknown>;
 }
 
 export type EventHandler<E extends keyof ClientEvents> = (
@@ -32,6 +42,8 @@ export type Modal =
   | { id?: never; validate(interaction: ModalSubmitInteraction): boolean | Promise<boolean>; execute: ModalExecute };
 
 export const defineCommand = (command: Command): Command => command;
+
+export const defineSubcommand = (subcommand: Subcommand): Subcommand => subcommand;
 
 export const defineButton = (button: Button): Button => button;
 
