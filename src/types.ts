@@ -15,6 +15,7 @@ export interface Command {
     toJSON(): RESTPostAPIChatInputApplicationCommandsJSONBody;
   };
   execute?(interaction: ChatInputCommandInteraction): unknown | Promise<unknown>;
+  autocomplete?(interaction: AutocompleteInteraction): unknown | Promise<unknown>;
 }
 
 export interface Subcommand {

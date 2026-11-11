@@ -1,14 +1,17 @@
+import { commands } from "../../handlers/commands.ts";
 import { findSubcommand } from "../../handlers/subcommands.ts";
 import { defineEvent } from "../../types.ts";
 
 export default defineEvent<"interactionCreate">(async (interaction) => {
   if (!interaction.isAutocomplete()) return;
 
-  const subcommand = findSubcommand(interaction);
-  if (!subcommand?.autocomplete) return;
+  const autocomplete =
+    findSubcommand(interaction)?.autocomplete ??
+    commands.get(interaction.commandName)?.autocomplete;
+  if (!autocomplete) return;
 
   try {
-    await subcommand.autocomplete(interaction);
+    await autocomplete(interaction);
   } catch (error) {
     const name = `${interaction.commandName} ${interaction.options.getSubcommand(false) ?? ""}`.trim();
     console.error(`[autocomplete] Error in /${name}:`, error);
