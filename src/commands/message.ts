@@ -6,7 +6,8 @@ import {
 import { defineCommand } from "../types.ts";
 import { errorMessage } from "../utils/messages.ts";
 import images from "../utils/images.ts";
-import {Panel} from "../../models/Panel.ts";
+import {Panel} from "../../models/Panel.ts"
+import {Op} from "sequelize";
 
 function ticketMessageComponent({
     panelId,
@@ -14,7 +15,7 @@ function ticketMessageComponent({
     description,
     buttonLabel,
     imageUrl
-                                }: {
+}: {
     panelId: string;
     title: string;
     buttonLabel: string;
@@ -69,27 +70,55 @@ function ticketMessageComponent({
 }
 
 export default defineCommand({
-  data: new SlashCommandBuilder().setName("message").setDescription("sends ticket message"),
+  data: new SlashCommandBuilder()
+      .setName("message")
+      .setDescription("Send Panel Message")
+      .addStringOption((e) => e
+          .setName("panel")
+          .setDescription("Start typing a panel name")
+          .setRequired(true)
+          .setAutocomplete(true)
+      ),
+
+  async autocomplete(interaction) {
+      if (!interaction.guildId) return interaction.respond([]);
+
+      const search = interaction.options.getFocused().trim();
+
+      const panels = await Panel.findAll({
+          where: {
+              guildId: interaction.guildId,
+              ...(search && { title: { [Op.iLike]: `%${search}%` } }),
+          },
+          order: [["name", "ASC"]],
+          limit: 25,
+      });
+
+      await interaction.respond(panels.map((panel) => ({
+          name: panel.title.slice(0, 100),
+          value: panel.id!,
+      })));
+  },
+
   async execute(interaction) {
+    const panelId = interaction.options.getString("panel");
+    if (!panelId) return;
+
     if (!interaction.channel || !interaction.channel.isSendable())
       return interaction.reply(errorMessage("I can't send messages in this channel"));
 
     if (!interaction.guild)
         return interaction.reply(errorMessage("Run this command in a server"));
 
-    await interaction.reply({ content: "sending...", flags: ["Ephemeral"] });
-
-    const panel = (await Panel.create({
-        name: "Panel Name",
-        buttonLabel: "Öffne ein Ticket",
-        guildId: interaction.guild.id,
-        title: "Ticket Titel",
-        description: "Ticket Beschreibung",
-        supportRoleId: "1567881410390401024",
-        welcomeTitle: "Wilkommen im Ticket",
-        welcomeMessage: "Wie können wir dir helfen?",
-        channelParentId: "1568204750057377854"
-    })).toJSON();
+    await interaction.reply({ content: "Sending Panel Message...", flags: ["Ephemeral"] });
+    const panel = await Panel.findOne({
+        where: {
+            id: panelId,
+            guildId: interaction.guild.id
+        }
+    });
+    if (!panel)
+        return interaction.editReply(errorMessage("No Panel found with this ID", false));
 
     await interaction.channel.send({
         components: ticketMessageComponent({
@@ -102,6 +131,6 @@ export default defineCommand({
         flags: ["IsComponentsV2"]
     });
 
-    await interaction.editReply("sent")
+    await interaction.editReply("✅ Panel message sent!")
   },
 });
